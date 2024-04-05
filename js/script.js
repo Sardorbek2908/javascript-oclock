@@ -84,3 +84,51 @@ for (let i = 0; i < tabsItem.length; i++) {
         tabsContentItem[i].classList.add('active') 
     })     
 }
+// ------------------------------------------------------------------------------------ 
+// SEKUNDAMER
+// ------------------------------------------------------------------------------------     
+
+let stopwatchbtn = document.querySelector(".stopwatch__btn");
+let stopwatchhour = document.querySelector(".stopwatch__hours");
+let stopwatchminute = document.querySelector(".stopwatch__minutes");
+let stopwatchsecond = document.querySelector(".stopwatch__seconds");
+let info = document.querySelector(".tabsLink__span");
+
+stopwatchbtn.addEventListener("click",function(){
+    if (this.innerHTML == "start") {
+        this.innerHTML = "stop";
+        info.classList.add("active");
+        let i = 0;
+        setTimeout(()=> stopWatch(this,i),10);
+    }else if (this.innerHTML == "stop"){
+        this.innerHTML = "clear";
+        info.classList.remove("active");
+        info.classList.add("active_clear")
+        let i = 0;
+    }else{
+        this.innerHTML = 'start';
+        info.classList.remove("active_clear")
+        stopwatchsecond.innerHTML = 0;
+        stopwatchminute.innerHTML = 0;
+        stopwatchhour.innerHTML = 0;
+    }
+})
+
+function stopWatch(el,i){
+    if(el.innerHTML == 'stop'){
+        if(i == 60){
+            i = 0;
+            stopwatchsecond.innerHTML = i;
+            if(stopwatchminute.innerHTML == 59){
+                stopwatchminute.innerHTML = 0;
+                stopwatchhour.innerHTML++;
+            }else{
+                stopwatchminute.innerHTML++;
+            }
+        }else{
+            i++;
+            stopwatchsecond.innerHTML = i;
+        }
+        setTimeout(()=>stopWatch(el,i),10)
+    }
+}
